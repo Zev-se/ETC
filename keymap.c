@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 [_RAISE] = LAYOUT_planck_grid(
     KC_TAB,  NO_LCBR,    NO_RCBR, SE_DLR, SE_HASH, SE_LABK, SE_RABK, _______, SE_PERC, _______, SE_PIPE,_______,
-    KC_ESC,  SE_AT,  SE_ASTR,   KC_BSLS,   SE_DQUO,   SE_LPRN,  SE_RPRN,   SE_EXLM, NO_TILD, CARROT, _______, _______,
+    KC_ESC,  SE_AT,  SE_ASTR,   KC_BSLS,   SE_DQUO,   SE_LPRN,  SE_RPRN,   SE_EXLM, NO_TILD, CARROT, SE_QUES, _______,
     KC_LSFT, LSQUAREBRACKET, RSQUAREBRACKET,   _______,   SE_AMPR,  _______,  _______,  _______, _______, _______, _______, _______,
     KC_LCTL, KC_RCMD, KC_LALT, _______, _______, KC_ENT, KC_ENT, MO(_RAISE), SE_BSLS, SE_ACUT, _______, _______
 ),
