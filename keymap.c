@@ -12,6 +12,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * qmk compile -kb planck/rev6 -km ZevSwe
+ * qmk flash -kb planck/rev6 -km ZevSwe
+ *
  */
 
 #include QMK_KEYBOARD_H
@@ -37,8 +41,7 @@ enum planck_keycodes {
   TILDE,
   BACKTICK,
   LSQUAREBRACKET,
-  RSQUAREBRACKET,
-  BACKSLASH
+  RSQUAREBRACKET
 };
 
 #define LOWER MO(_LOWER)
@@ -55,88 +58,88 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+---------+----------+------+------+----------+-------+-------+----------+------|
 * | Shift|   Z  |   X  |    C    |    V     |   B  |   N  |     M    |   ,   |    .  |     -    |Enter |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+----------+------|
-* | Ctrl |  GUI | Alt  | L4/PRSC |Lower/INS |    Space    |  Raise/? |   /   | PIPE  | BACKTICK | Bksp |
+* | Ctrl |  GUI | Alt  | L4/     |Lower/INS |    Space    |  Raise/? |   /   |       | BACKTICK | Bksp |
 * `----------------------------------------------------------------------------------------------------'
 */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_AA  ,
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    SE_OSLH, SE_AE  ,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_ENT ,
-    KC_LCTL, KC_RCMD, KC_LALT, LT(_LAYER4, KC_PSCR), LT(_LOWER, KC_INS),   KC_SPC,  KC_SPC,LT(_RAISE, SE_QUES) , KC_KP_SLASH, SE_PIPE,BACKTICK , KC_BSPC
+    KC_LCTL, KC_RCMD, KC_LALT, MO(_LAYER4), LT(_LOWER, KC_INS),   KC_SPC,  KC_SPC,LT(_RAISE, SE_QUES) , KC_KP_SLASH, _______,BACKTICK , KC_BSPC
 ),
 
 
 /* Lower
 * ,-------------------------------------------------------------------------------------------------.
-* | Tab  |  Del |   UP  |   F1    |    F2    |  F3  |  F4  |    F5    |   F6  |  F7   |  F8  |  F9  |
+* | Tab  |      |  Del  |   UP    |          | Play |  <<  |    >>    |  P Up |       | PRSC |      |
 * |------+------+-------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Esc  |Left  |  Down |  Right  |          |      | Play |    <<    |  >>   |  F10  |  F11 | F12  |
+* | Esc  |      |  Left |  Down   |  Right   |      |      |   Home   | P Dnw |  End  |      |      |
 * |------+------+-------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Shift|SCR UP|SCR DWN|         |          |      | Mute |   Vol-   | Vol+  |       | P Up |      |
+* | Shift|SCR UP|SCR DWN|         |          | Mute | Vol- |   Vol+   |       |       |      |      |
 * |------+------+-------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Ctrl |  GUI | Alt   |         |Lower/PRSC|    Bksp     | Raise/~  |       |  Home |P Dnw | End  |
+* | Ctrl |  GUI | Alt   |         |Lower/PRSC|    Bksp     | Raise/?  |       |       |      |      |
 * `-------------------------------------------------------------------------------------------------'
 */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_TAB, KC_DEL, KC_UP,   KC_F1, KC_F2,  KC_F3, KC_F4, KC_F5,    KC_F6,  KC_F7, KC_F8, KC_F9,
-    KC_ESC,  KC_LEFT,   KC_DOWN,   KC_RIGHT,   _______,   _______,   MU_TOG,   KC_MPRV,    KC_MNXT,    KC_F10, KC_F11, KC_F12,
-    KC_LSFT, KC_WH_U,   KC_WH_D,   _______,   _______,  _______,  KC_MUTE,  KC_VOLD, KC_VOLU, KC_HOME, KC_HOME,  _______,
-    KC_LCTL, KC_RCMD, KC_LALT, _______, LT(_LOWER, KC_PSCR), _______, _______, _______,    KC_MNXT,    KC_HOME, KC_PGDN, KC_END
+    KC_TAB, _______, KC_DEL,   KC_UP, _______,  KC_MPLY, KC_MPRV, KC_MNXT,    KC_PGUP,  _______, KC_PSCR, _______,
+    KC_ESC,  _______,   KC_LEFT,   KC_DOWN,   KC_RIGHT,   _______,   MU_TOG,   KC_HOME,    KC_PGDN,    KC_END, _______, _______,
+    KC_LSFT, KC_WH_U,   KC_WH_D,   _______,   _______,  KC_MUTE,  KC_VOLD,  KC_VOLU, KC_VOLU, _______, _______,  _______,
+    KC_LCTL, KC_RCMD, KC_LALT, _______, LT(_LOWER, KC_INS), KC_BSPC, KC_BSPC, _______,    _______,    _______, _______, _______
 ),
 
 /* Raise
 * ,------------------------------------------------------------------------------------------------.
-* | Tab  |  (   |  )   |    $    |    #     |  <   |  >   |     *    |   %   |       |      |      |
+* | Tab  |  {   |  }   |    $    |    #     |  <   |  >   |          |   %   |       |   |  |      |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Esc  |  {   |  }   |    '    |    "     |   `  |  \   |     /    |   ~   |       |      |      |
+* | Esc  |  @   |  *   |    '    |    "     |   (  |  )   |     !    |   ~   |   ^   |   ?  |      |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Shift|  [   |  ]   |    @    |    &     |   |  |  !   |     ^    |       |       |      |      |
+* | Shift|  [   |  ]   |         |    &     |      |      |          |       |       |      |      |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Ctrl |  GUI | Alt  | L4/Star |Lower/INS |      ?      |  Raise/  |       |       |      |      |
+* | Ctrl |  GUI | Alt  | L4/Star |Lower/INS |     Bksp    |  Raise   |   \   |    ´  |      |      |
 * `------------------------------------------------------------------------------------------------'
 */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_TAB,  SE_LPRN,    SE_RPRN, SE_DLR, SE_HASH, SE_LABK, SE_RABK, SE_ASTR, SE_PERC, _______, _______, _______,
-    KC_ESC,  NO_LCBR,  NO_RCBR,   KC_BSLS,   SE_DQUO,   BACKTICK,  BACKSLASH,   KC_KP_SLASH, NO_TILD,  _______, _______, _______,
-    KC_LSFT, LSQUAREBRACKET, RSQUAREBRACKET,   SE_AT,   SE_AMPR,  SE_PIPE,  SE_EXLM,  CARROT, _______, _______, _______, _______,
-    KC_LCTL, KC_RCMD, KC_LALT, _______, _______, SE_QUES, SE_QUES, LT(_RAISE, SE_QUES), _______, _______, _______, _______
+    KC_TAB,  NO_LCBR,    NO_RCBR, SE_DLR, SE_HASH, SE_LABK, SE_RABK, _______, SE_PERC, _______, SE_PIPE,_______,
+    KC_ESC,  SE_AT,  SE_ASTR,   KC_BSLS,   SE_DQUO,   SE_LPRN,  SE_RPRN,   SE_EXLM, NO_TILD, CARROT, _______, _______,
+    KC_LSFT, LSQUAREBRACKET, RSQUAREBRACKET,   _______,   SE_AMPR,  _______,  _______,  _______, _______, _______, _______, _______,
+    KC_LCTL, KC_RCMD, KC_LALT, _______, _______, KC_ENT, KC_ENT, MO(_RAISE), SE_BSLS, SE_ACUT, _______, _______
 ),
 /* Layer 4
 * ,------------------------------------------------------------------------------------------------.
-* | Tab  | F13  | F14  |   F15   |   F16    |      |      |    *     |   7   |   8   |  9   |  -   |
+* | Tab  | F13  | F14  |   F15   |   F16    |      |   *  |    7     |   8   |   9   |  -   |      |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Esc  | F17  | F18  |   F19   |   F20    |      |      |    /     |   4   |   5   |  6   |  +   |
+* | Esc  | F17  | F18  |   F19   |   F20    |      |   /  |    4     |   5   |   6   |  +   |      |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Shift| F21  | F22  |   F23   |   F24    |      |      |    ^     |   1   |   2   |  3   |  =   |
+* | Shift| F21  | F22  |   F23   |   F24    |      |   ^  |    1     |   2   |   3   |  =   | Enter|
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Ctrl |  GUI | Alt  | L4/Star |          |             |          |   .   |   0   |      |Enter |
+* | Ctrl |  GUI | Alt  | L4/Star |          |      .      |    0     |       |       |      |      |
 * `------------------------------------------------------------------------------------------------'
 */
 
   [_LAYER4] = LAYOUT_planck_grid(
-    KC_TAB,  KC_F13, KC_F14, KC_F15, KC_F16,    _______,    _______,    KC_KP_ASTERISK, KC_P7,    KC_P8,    KC_P9,    KC_KP_MINUS,
-    KC_ESC,  KC_F17, KC_F18, KC_F19, KC_F20,    _______,    _______,    KC_KP_SLASH,    KC_P4,    KC_P5,    KC_P6,    KC_KP_PLUS,
-    KC_LSFT, KC_F21, KC_F22, KC_F23, KC_F24,    _______,    _______,    CARROT,        KC_P1,    KC_P2,    KC_P3,    KC_PEQL,
-    KC_LCTL, KC_RCMD, KC_LALT, LT(_LAYER4, KC_PIPE), _______,   _______,  _______,  _______,   KC_KP_DOT, KC_P0, _______,   KC_KP_ENTER
+    KC_TAB,  KC_F13, KC_F14, KC_F15, KC_F16,    _______,    KC_KP_ASTERISK,    KC_P7, KC_P8,    KC_P9,    KC_KP_MINUS,    _______,
+    KC_ESC,  KC_F17, KC_F18, KC_F19, KC_F20,    _______,    KC_KP_SLASH,    KC_P4,    KC_P5,    KC_P6,    KC_KP_PLUS,    _______,
+    KC_LSFT, KC_F21, KC_F22, KC_F23, KC_F24,    _______,    CARROT,    KC_P1,        KC_P2,    KC_P3,    KC_PEQL,    _______,
+    KC_LCTL, KC_RCMD, KC_LALT, MO(_LAYER4), _______,   KC_DOT,  KC_DOT,  KC_P0,   _______, _______, _______,   _______
 ),
 
 /* Adjust (Lower + Raise)
 * ,------------------------------------------------------------------------------------------------.
-* | Tab  |      |      |         | Tog RGB  | RGB- | RGB+ |RGB STATIC|       |       |      |RESET |
+* | Tab  |  F1  |  F2  |   F3    |    F4    |      |      |          |       |       |      |RESET |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Esc  |      |      |         |          | BL On|BL OFF|          |       |       |      |      |
+* | Esc  |  F5  |  F6  |   F7    |    F8    |      |      |          |       |       |      | Num  |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
-* | Shift|      |      |         |          |Scr - | Scr +|          |       |       |      |      |
+* | Shift|  F9  | F10  |   F11   |    F12   |Scr - | Scr +|  Tog RGB |       |       |      |      |
 * |------+------+------+---------+----------+------+------+----------+-------+-------+------+------|
 * | Ctrl |  GUI | Alt  |         |   Lower  |    Sleep    |  Raise   |       |       |      |      |
 * `------------------------------------------------------------------------------------------------'
 */
 
 [_ADJUST] = LAYOUT_planck_grid(
-    KC_TAB, _______,   _______,   _______, RGB_TOG, RGB_RMOD, RGB_MOD, RGB_M_P, _______,  _______, _______, RESET,
-    KC_ESC, _______, _______,  _______,   BL_TOGG,  BL_DEC, BL_INC, _______,  _______,  _______,  _______,  _______,
-    KC_LSFT, _______,  _______,  _______,   _______,  KC_BRID,   KC_BRIU,  _______, _______, _______, _______, _______,
-    KC_LCTL, KC_RCMD, KC_LALT, LT(_LAYER4, KC_PIPE), KC_SLEP, KC_SLEP, LT(_RAISE, SE_QUES), _______, _______,  _______, _______, _______
+    KC_TAB, KC_F1,   KC_F2,   KC_F3, KC_F4, _______, _______, _______, _______,  _______, _______, RESET,
+    KC_ESC, KC_F5, KC_F6,  KC_F7,   KC_F8,  BL_DEC, BL_INC, _______,  _______,  _______,  _______,  KC_LNUM,
+    KC_LSFT, KC_F9,  KC_F10,  KC_F11,   KC_F12,  KC_BRID,   KC_BRIU,  RGB_TOG, _______, _______, _______, _______,
+    KC_LCTL, KC_RCMD, KC_LALT, LT(_LAYER4, KC_PIPE), _______, KC_SLEP, KC_SLEP, MO(_RAISE), _______, _______,  _______, _______
 ),
 
 
@@ -222,12 +225,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(plover_gb_song);
         #endif
         layer_off(_PLOVER);
-      }
-      return false;
-      break;
-    case BACKSLASH:
-      if (record->event.pressed) {
-        SEND_STRING(SS_RALT("-"));
       }
       return false;
       break;
