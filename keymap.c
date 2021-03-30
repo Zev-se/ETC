@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT_planck_grid(
     KC_TAB, KC_F13,   KC_F14,   KC_F15, KC_F16, _______, _______, _______, _______,  _______, _______, RESET,
-    KC_ESC, KC_F17, KC_F18,  KC_F19,   KC_F20,  BL_DEC, BL_INC, _______,  _______,  _______,  _______,  KC_LNUM,
+    KC_ESC, KC_F17, KC_F18,  KC_F19,   KC_F20,  BL_DEC, BL_INC, _______,  _______,  _______,  _______,  KC_NLCK,
     KC_LSFT, KC_F21,  KC_F22,  KC_F23,   KC_F24,  KC_BRID,   KC_BRIU,  RGB_TOG, _______, _______, _______, _______,
     KC_LCTL, KC_RCMD, KC_LALT, LT(_LAYER4, KC_PIPE), _______, KC_SLEP, KC_SLEP, MO(_RAISE), _______, _______,  _______, _______
 ),
